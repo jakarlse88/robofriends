@@ -1,40 +1,40 @@
-import React, { Component } from 'react';
-import CardList from '../components/CardList';
-import SearchBox from '../components/SearchBox';
-import Scroll from '../components/Scroll';
-import ErrorBoundary from '../components/ErrorBoundary';
 import './App.css';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as ACTIONS from '../actions/actions';
+import CardList from '../components/CardList';
+import ErrorBoundary from '../components/ErrorBoundary';
+import React, { Component } from 'react';
+import Scroll from '../components/Scroll';
+import SearchBox from '../components/SearchBox';
+
 
 class App extends Component {
-  constructor() {
-    super()
-    this.state = {
-      robots: [],
-      searchfield: ''
-    }
-  }
+  constructor(props) {
+    super(props);
 
-  componentDidMount() {
-    fetch('https://jsonplaceholder.typicode.com/users')
-      .then(response=> response.json())
-      .then(users => {this.setState({ robots: users})});
-  }
+    const { actions } = props;
 
-  onSearchChange = (event) => {
-    this.setState({ searchfield: event.target.value })
+    actions.fetchData('https://jsonplaceholder.typicode.com/users');
   }
 
   render() {
-    const { robots, searchfield } = this.state;
-    const filteredRobots = robots.filter(robot =>{
-      return robot.name.toLowerCase().includes(searchfield.toLowerCase());
+    const {
+      actions,
+      robots,
+      query 
+    } = this.props;
+
+    const filteredRobots = robots.filter(robot => {
+      return robot.name.toLowerCase().includes(query.toLowerCase());
     })
     return !robots.length ?
       <h1>Loading</h1> :
       (
         <div className='tc'>
           <h1 className='f1'>RoboFriends</h1>
-          <SearchBox searchChange={this.onSearchChange}/>
+          <SearchBox
+            searchChange={e => actions.setQuery(e.target.value)} />
           <Scroll>
             <ErrorBoundary>
               <CardList robots={filteredRobots} />
@@ -45,4 +45,17 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    query: state.query,
+    robots: state.robots
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    actions: bindActionCreators(ACTIONS, dispatch)
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

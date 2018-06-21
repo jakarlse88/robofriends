@@ -1,9 +1,28 @@
+import './index.css';
+import 'tachyons';
+import { createStore, compose, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import { searchRobots } from './reducers/reducers';
+import thunk from 'redux-thunk';
+import App from './containers/App';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './containers/App';
 import registerServiceWorker from './registerServiceWorker';
-import 'tachyons';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+
+const store = createStore(
+    searchRobots, 
+    compose(
+        applyMiddleware(thunk),
+        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    )
+);
+
+ReactDOM.render(
+    <Provider store={store}>
+        <App />
+    </Provider>,
+    document.getElementById('root')
+);
+
 registerServiceWorker();
