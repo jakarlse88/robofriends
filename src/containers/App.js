@@ -4,7 +4,6 @@ import * as ACTIONS from '../actions/actions';
 import React, { Component } from 'react';
 import MainPage from '../components/MainPage';
 
-
 class App extends Component {
 	constructor(props) {
 		super(props);
@@ -15,10 +14,7 @@ class App extends Component {
 	}
 
 	render() {
-		return <MainPage
-			robots={this.props.robots}
-			query={this.props.query}
-			actions={this.props.actions} />;
+		return <MainPage {...this.props} />;
 	}
 }
 
