@@ -1,13 +1,8 @@
-import './App.css';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ACTIONS from '../actions/actions';
-import CardList from '../components/CardList';
-import ErrorBoundary from '../components/ErrorBoundary';
 import React, { Component } from 'react';
-import Scroll from '../components/Scroll';
-import SearchBox from '../components/SearchBox';
-import Header from '../components/Header';
+import MainPage from '../components/MainPage';
 
 
 class App extends Component {
@@ -20,30 +15,10 @@ class App extends Component {
 	}
 
 	render() {
-		const {
-			actions,
-			robots,
-			query
-		} = this.props;
-
-		const filteredRobots = robots.filter(robot => {
-			return robot.name.toLowerCase().includes(query.toLowerCase());
-		});
-
-		return !robots.length ?
-			<h1>Loading</h1>
-			: (
-				<div className='tc'>
-					<Header />
-					<SearchBox
-						searchChange={e => actions.setQuery(e.target.value)} />
-					<Scroll>
-						<ErrorBoundary>
-							<CardList robots={filteredRobots} />
-						</ErrorBoundary>
-					</Scroll>
-				</div>
-			);
+		return <MainPage
+			robots={this.props.robots}
+			query={this.props.query}
+			actions={this.props.actions} />;
 	}
 }
 
