@@ -2,7 +2,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ACTIONS from '../actions/actions';
 import React, { Component } from 'react';
-import MainPage from '../components/MainPage';
+import MainPage from '../components/mainpage/MainPage';
 
 class App extends Component {
 	constructor(props) {

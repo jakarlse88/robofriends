@@ -1,10 +1,10 @@
 import './MainPage.css';
-import CardList from '../components/CardList';
-import ErrorBoundary from '../components/ErrorBoundary';
-import Header from '../components/Header';
+import CardList from '../CardList';
+import ErrorBoundary from '../../components/ErrorBoundary';
+import Header from '../Header';
 import React, { Component } from 'react';
-import Scroll from '../components/Scroll';
-import SearchBox from '../components/SearchBox';
+import Scroll from '../Scroll';
+import SearchBox from '../SearchBox';
 
 export default class MainPage extends Component {
     filterRobots = robots => {
@@ -13,7 +13,7 @@ export default class MainPage extends Component {
             robots.filter(robot => {
                 return robot.name.toLowerCase().includes(query.toLowerCase());
             })
-            : null;
+            : [];
         return filteredRobots;
     }
 
