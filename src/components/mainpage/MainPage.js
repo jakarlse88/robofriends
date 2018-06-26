@@ -1,10 +1,10 @@
 import './MainPage.css';
-import CardList from '../CardList';
-import ErrorBoundary from '../../components/ErrorBoundary';
-import Header from '../Header';
+import CardList from '../cardlist/CardList';
+import ErrorBoundary from '../errorboundary/ErrorBoundary';
+import Header from '../header/Header';
 import React, { Component } from 'react';
-import Scroll from '../Scroll';
-import SearchBox from '../SearchBox';
+import Scroll from '../scroll/Scroll';
+import SearchBox from '../searchbox/SearchBox';
 
 export default class MainPage extends Component {
     filterRobots = robots => {

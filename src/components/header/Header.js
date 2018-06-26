@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import CounterButton from './CounterButton';
+import CounterButton from '../counterbutton/CounterButton';
 
 export default class Header extends Component {
     shouldComponentUpdate = (nextProps, nextState) => {
