@@ -6,8 +6,8 @@ export const setQuery = text => {
         payload: {
             query: text
         }
-    }
-}
+    };
+};
 
 export const dataIsFetching = bool => {
     return {
@@ -47,20 +47,20 @@ export const populateRobots = robots => {
 
 export const fetchData = url => {
     return async dispatch => {
-    
-            dispatch(dataIsFetching(true));
 
-            try {
-                const response = await fetch(url);
+        dispatch(dataIsFetching(true));
 
-                dispatch(dataIsFetching(false));
+        try {
+            const response = await fetch(url);
 
-                const data = await response.json();
-                dispatch(dataFetchSuccess(true));
-                dispatch(populateRobots(data));
-            } catch (e) {
-                dispatch(dataFetchDidErr(true));
-                console.log(e);
-            }
+            dispatch(dataIsFetching(false));
+
+            const data = await response.json();
+            dispatch(dataFetchSuccess(true));
+            dispatch(populateRobots(data));
+        } catch (e) {
+            dispatch(dataFetchDidErr(true));
+            console.log(e);
+        }
     };
 }
