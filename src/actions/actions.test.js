@@ -1,6 +1,10 @@
-import * as _TYPE from "./types";
 import * as _ACTIONS from './actions';
+import * as _TYPE from "./types";
+import configureMockStore from 'redux-mock-store';
 import robots from '../utils/robots';
+import thunkMiddleware from 'redux-thunk';
+
+const mockStore = configureMockStore([thunkMiddleware]);
 
 describe('Redux actions', () => {
     it('should create an action to set query', () => {
@@ -47,4 +51,21 @@ describe('Redux actions', () => {
             }
         });
     });
+
+    it('should handle fetching data', async () => {
+        const store = mockStore();
+        
+        store.dispatch(_ACTIONS.fetchData('https://jsonplaceholder.typicode.com/users'));
+        
+        const action = store.getActions();
+        
+        const expectedAction = {
+            type: _TYPE.DATA_IS_FETCHING,
+            payload: {
+                dataIsFetching: true
+            }
+        };
+
+        expect(action[0]).toEqual(expectedAction);
+    });    
 })
