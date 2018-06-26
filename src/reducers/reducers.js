@@ -1,6 +1,6 @@
 import * as _ACTIONS from "../actions/types";
 
-const initialState = {
+export const initialState = {
     robots: [],
     query: '',
     dataIsFetching: false,
@@ -8,7 +8,7 @@ const initialState = {
     dataFetchSuccess: null
 };
 
-export const searchRobots = (state = initialState, action) => {
+export const searchRobots = (state = initialState, action = {}) => {
     switch (action.type) {
         case _ACTIONS.SET_QUERY:
             return {
